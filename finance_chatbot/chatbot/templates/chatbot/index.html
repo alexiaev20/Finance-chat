@@ -1,0 +1,410 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot de Finanças</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'chatbot/style.css' %}">
+    <script src="{% static 'chatbot/script.js' %}"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="{% static 'chatbot/logo.png' %}" alt="Logo da Empresa" />
+        </div>
+        <nav class="login">
+            <a href="javascript:void(0);" onclick="toggleLogin();">Login</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Caixa de Login -->
+        <div id="overlay" class="overlay" style="display: none;"></div>
+
+        <!-- Modal de Login -->
+        <div id="login-box" class="login-box" style="display: none;" aria-labelledby="login-title">
+            <div class="login-header">
+                <h2 id="login-title">Login</h2>
+                <span class="close-icon" onclick="toggleLogin();">✖</span>
+            </div>
+            <form id="login-f" action="" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha:</label>
+                    <input type="password" id="password" name="password" required>
+                    <div class="password-actions">
+                        <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                        <a href="#" class="signup" onclick="openSignup();">Cadastre-se</a>
+                    </div>
+                </div>
+                <button class="entrar" type="submit">Entrar</button>
+            </form>
+        </div>
+        
+        <!-- Modal de Cadastro -->
+        <div id="signup-box" class="login-box" style="display: none;" aria-labelledby="signup-title">
+            <div class="login-header">
+                <h2 id="signup-title">Cadastro</h2>
+                <span class="close-icon" onclick="toggleSignup();">✖</span>
+            </div>
+            <form id="signup-f" action="" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Nome:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email-signup">Email:</label>
+                    <input type="email" id="email-signup" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password-signup">Senha:</label>
+                    <input type="password" id="password-signup" name="password" required>
+                </div>
+                <button class="entrar" type="submit">Cadastrar</button>
+            </form>
+        </div>
+        
+    
+
+        <div class="container">
+            <section class="welcome-section">
+                <h2 class="slogan">Maximize seu controle financeiro!</h2>
+                <p class="description">
+                    Descubra como simplificar sua vida financeira.
+                    <br>Nós oferecemos uma 
+                    plataforma completa com dicas e prestações de serviços 
+                     permitindo que você acompanhe seu fluxo de suas finanças, organize contas e tire duvidas com especialistas.
+                </p>
+                <button class="contact-button" onclick="contactSpecialist()">Falar com um Especialista</button>
+            </section>
+        
+            <img class='img-Principal' src="https://media.istockphoto.com/id/1420037581/pt/foto/one-happy-young-mixed-race-woman-holding-a-piggybank-and-depositing-a-coin-as-savings-hispanic.jpg?s=612x612&w=0&k=20&c=UoIlgMSOD1tPwYFW95fcIvLXrAVmR3f0Uk3trn9GtXY=" alt="Imagem Poupança">
+        </div>
+        
+
+            <!-- SERVIÇO -->
+        <section class="servicos">
+            <h3>Serviços</h3>
+            <div class="servicos-container">
+                <div class="servico-card">
+                    <h4>Consultoria Financeira</h4>
+                    <p>Oferecemos assessoria personalizada para ajudar você a gerenciar suas finanças e alcançar seus objetivos financeiros.</p>
+                </div>
+                <div class="servico-card">
+                    <h4>Dicas de Finanças</h4>
+                    <p>Compartilhamos dicas práticas e estratégicas para melhorar sua saúde financeira e otimizar seus investimentos.</p>
+                </div>
+                <div class="servico-card">
+                    <h4>Análise Financeira</h4>
+                    <p>Realizamos análises detalhadas das suas finanças, fornecendo relatórios que ajudam na tomada de decisões informadas.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- DICAS -->
+        <div class="dicas-financeiras">
+            <h2>Dicas Financeiras</h2>
+            
+            <div class="dica">
+                <div class="dica-container">
+                    <div class="imagem-container">
+                        <img src="https://media.istockphoto.com/id/1420037581/pt/foto/one-happy-young-mixed-race-woman-holding-a-piggybank-and-depositing-a-coin-as-savings-hispanic.jpg?s=612x612&w=0&k=20&c=UoIlgMSOD1tPwYFW95fcIvLXrAVmR3f0Uk3trn9GtXY=" alt="Imagem Poupança" class="imagem-pequena">
+                    </div>
+                    <div class="texto-chat">
+                        <h3>Dica sobre poupança <i class="fas fa-piggy-bank"></i></h3>
+                        <div class="dica-item">
+                            <p>1. Comece a poupar hoje</p>
+                            <p>Estabeleça um orçamento mensal e reserve uma parte dele para poupança. Isso ajudará a criar uma base financeira sólida.</p>
+                        </div>
+                        <div class="dica-item">
+                            <p>2. Crie um fundo de emergência</p>
+                            <p>Guarde pelo menos três a seis meses de despesas em uma conta separada para imprevistos.</p>
+                        </div>
+                        <div class="dica-item">
+                            <p>3. Automatize seus depósitos</p>
+                            <p>Configure transferências automáticas para sua conta de poupança para garantir que você sempre poupe.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="dica">
+                <div class="dica-container">
+                    <div class="texto-chat">
+                        <h3>Dica sobre investimentos <i class="fas fa-chart-line"></i></h3>
+                        <div class="dica-item">
+                            <p>1. Invista em educação financeira</p>
+                            <p>Aprenda sobre diferentes tipos de investimentos e como funcionam os mercados financeiros.</p>
+                        </div>
+                        <div class="dica-item">
+                            <p>2. Diversifique seus investimentos</p>
+                            <p>Não coloque todos os seus ovos em uma única cesta; diversificar pode minimizar riscos.</p>
+                        </div>
+                        <div class="dica-item">
+                            <p>3. Comece pequeno</p>
+                            <p>Considere investir pequenas quantias regularmente para se acostumar com o processo.</p>
+                        </div>
+                    </div>
+                        <div class="imagem-container">
+                            <img src="data:image/jpeg;base64,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" alt="Imagem Investimentos" class="imagem-pequena">
+                        </div>
+                </div>
+            </div>
+        
+            <div class="dica">
+                <div class="dica-container">
+                    <div class="imagem-container">
+                        <img src="https://blog.cresol.com.br/wp-content/uploads/2023/12/pessoa-calculando-dividas.jpg" alt="Imagem Dívidas" class="imagem-pequena">
+                    </div>
+                    <div class="texto-chat">
+                        <h3>Dica sobre crédito <i class="fas fa-credit-card"></i></h3>
+                        <div class="dica-item">
+                            <p>1. Use o crédito com responsabilidade</p>
+                            <p>Evite gastar mais do que pode pagar e mantenha um controle rigoroso sobre suas despesas.</p>
+                        </div>
+                        <div class="dica-item">
+                            <p>2. Conheça sua pontuação de crédito</p>
+                            <p>Fique de olho na sua pontuação de crédito e busque melhorá-la ao longo do tempo.</p>
+                        </div>
+                        <div class="dica-item">
+                            <p>3. Compare taxas de juros</p>
+                            <p>Antes de fazer um empréstimo, compare as taxas de juros oferecidas por diferentes instituições.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <!-- SOBRE -->
+        <section class="sobre-nos">
+            <h3>Sobre Nós</h3>
+            <p>Somos dedicados a oferecer soluções financeiras que ajudam nossos clientes a alcançar seus objetivos. Nossa missão é fornecer orientações precisas e personalizadas, capacitando nossos clientes a tomarem decisões financeiras informadas.</p>
+            <p>Nossos valores são a base do nosso trabalho:</p>
+            <ul>
+                <li><strong>Integridade:</strong> Agimos com transparência e honestidade em todas as nossas interações.</li>
+                <li><strong>Excelência:</strong> Buscamos sempre a qualidade em nossos serviços e atendimento.</li>
+                <li><strong>Inovação:</strong> Estamos sempre atualizados com as últimas tendências e tecnologias do mercado financeiro.</li>
+                <li><strong>Empatia:</strong> Colocamos nossos clientes em primeiro lugar, entendendo suas necessidades e desafios.</li>
+            </ul>
+        </section>
+
+        <!-- DEPOIMENTO -->
+        <section class="depoimentos">
+            <h2>O que nossos clientes dizem</h2>
+            <div class="depoimento-container">
+                <div class="depoimento-card">
+                    <strong>Maria Silva</strong>
+                    <p>"Graças à consultoria, consegui economizar e investir melhor!"</p>
+                    <div class="estrelas">
+                        ★★★★☆
+                    </div>
+                </div>
+                <div class="depoimento-card">
+                    <strong>João Pereira</strong>
+                    <p>"As dicas de finanças mudaram minha visão sobre dinheiro."</p>
+                    <div class="estrelas">
+                        ★★★★★
+                    </div>
+                </div>
+                <div class="depoimento-card">
+                    <strong>Fernanda Costa</strong>
+                    <p>"Com o suporte da equipe, organizei minhas finanças e alcancei meus objetivos."</p>
+                    <div class="estrelas">
+                        ★★★★☆
+                    </div>
+                </div>
+                <div class="depoimento-card">
+                    <strong>Ricardo Almeida</strong>
+                    <p>"A consultoria foi essencial para minha educação financeira e melhores decisões."</p>
+                    <div class="estrelas">
+                        ★★★★★
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+        <!-- FAQ -->
+        <section class="faq">
+            <h2>Perguntas Frequentes</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <h3 class="faq-question">
+                        1. Como posso iniciar uma consultoria financeira? 
+                        <button class="toggle-button">&#9660;</button>
+                    </h3>
+                    <p class="faq-answer">Você pode entrar em contato conosco através do formulário abaixo ou agendar uma reunião diretamente pelo site.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 class="faq-question">
+                        2. Qual é o custo dos serviços? 
+                        <button class="toggle-button">&#9660;</button>
+                    </h3>
+                    <p class="faq-answer">Os custos variam conforme o tipo de serviço. Entre em contato para mais detalhes.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 class="faq-question">
+                        3. Quais tipos de consultoria vocês oferecem? 
+                        <button class="toggle-button">&#9660;</button>
+                    </h3>
+                    <p class="faq-answer">Oferecemos consultoria financeira pessoal, empresarial e para investimentos. Entre em contato para saber mais sobre cada um desses serviços.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 class="faq-question">
+                        4. Como posso agendar uma consulta? 
+                        <button class="toggle-button">&#9660;</button>
+                    </h3>
+                    <p class="faq-answer">Você pode agendar uma consulta diretamente pelo nosso site ou entrar em contato pelo telefone disponível em nossa página de contato.</p>
+                </div>
+            </div>
+        </section>
+        
+        
+        <!-- FORMS -->
+        
+        <section class="contato">
+            <h2>Entre em Contato</h2>
+            <form action="envio_contato.php" method="post" class="contact-form">
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="email_contato">Email:</label>
+                    <input type="email" id="email_contato" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="mensagem">Mensagem:</label>
+                    <textarea id="mensagem" name="mensagem" rows="4" required></textarea>
+                </div>
+                <button type="submit">Enviar Mensagem</button>
+            </form>
+        </section>
+
+
+        <!-- Ícone do Chat -->
+ 
+        <!-- CHAT -->
+        <div id="chat-box" style="display: none;">
+            <div class="chat-header">
+                Chatbot
+                <span class="close-icon" onclick="toggleChat();">✖</span>
+            </div>
+            <div class="chat-content">
+                <p class="bot-message">Bem-vindo ao chat! Como posso ajudá-lo?</p>
+                <p class="bot-message">Escolha uma opção:</p>
+                <div class="options">
+                    <p class="bot-message">Digite "1" para Consultoria Financeira</p>
+                    <p class="bot-message">Digite "2" para Análise de Investimentos</p>
+                    <p class="bot-message">Digite "3" para Educação Financeira</p>
+                    <p class="bot-message">Digite "4" para Suporte de Orçamento Pessoal</p>
+                </div>
+                
+                {% if response %}
+                    <p class="user-m">Você: {{ response }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Formulário de Envio -->
+            <form id="chat-form" action="{% url 'chatbot_view' %}" onsubmit="submitChatForm(event)" class="chat-footer">
+                {% csrf_token %}
+                <input type="text" name="user_input" placeholder="Digite uma opção" required>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+
+        <footer>
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h4>O que você precisa?</h4>
+                    <ul>
+                        <li><a href="">Desenrola Brasil</a></li>
+                        <li><a href="">Consultar meu CPF</a></li>
+                        <li><a href="">Limpar meu nome</a></li>
+                        <li><a href="">Consultar pontuação do Score</a></li>
+                        <li><a href="">Negociar minhas dívidas</a></li>
+                        <li><a href="">Monitorar meu CPF</a></li>
+                        <li><a href="">Monitoramento Dark Web</a></li>
+                        <li><a href="">Falar com </a></li>
+                        <li><a href="">Atualizar meus dados</a></li>
+                        <li><a href="">para empresas</a></li>
+                        <li><a href="">Parceiros </a></li>
+                        <li><a href="">Como tratamos seus dados</a></li>
+                        <li><a href="">Todos os sites</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Crédito</h4>
+                    <ul>
+                        <li><a href="">Score</a></li>
+                        <li><a href="">Limpa Nome</a></li>
+                        <li><a href="">Cadastro Positivo</a></li>
+                        <li><a href="">Ensina</a></li>
+                        <li><a href="">Você Consulta</a></li>
+                        <li><a href="">Atendimento</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Pontos de Atendimento</h4>
+                    <ul>
+                        <li><a href="">Pontos de Atendimento</a></li>
+                        <li><a href="">Telefones</a></li>
+                        <li><a href="">Central de Ajuda</a></li>
+                        <li><a href="">Denuncie uma fraude digital</a></li>
+                        <li><a href="">Outros Serviços</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Seja parceiro</h4>
+                    <ul>
+                        <li><a href="">Seja parceiro </a></li>
+                        <li><a href="">Seja parceiro Limpa Nome</a></li>
+                        <li><a href="">Seja parceiro  Crédito</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Redes Sociais</h4>
+                    <ul>
+                        <li><a href="https://www.instagram.com">Instagram</a></li>
+                        <li><a href="https://www.tiktok.com">Tiktok</a></li>
+                        <li><a href="https://www.youtube.com">YouTube</a></li>
+                        <li><a href="https://www.twitter.com">Twitter</a></li>
+                        <li><a href="https://www.facebook.com">Facebook</a></li>
+                        <li><a href="https://www.linkedin.com">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 . Todos os direitos reservados.</p>
+                <ul>
+                    <li><a href="#">Selo amiga da justiça</a></li>
+                    <li><a href="#">GlobalSign</a></li>
+                    <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">Acesso ao Procon</a></li>
+                    <li><a href="#">Órgãos de Defesa do Consumidor</a></li>
+                    <li><a href="#">Trabalhe com a gente</a></li>
+                </ul>
+            </div>
+        </footer>
+
+    <div id="chat-icon" onclick="toggleChat();" aria-label="Abrir chat">
+        💬
+    </div>
+
+</body>
+</html>
